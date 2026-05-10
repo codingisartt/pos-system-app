@@ -1,6 +1,6 @@
 package com.tnb.possystem.payload.dto;
 
-import com.tnb.possystem.modal.Store;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +16,7 @@ public class CategoryDto {
 
     private String name;
 
-    private Store store;
+//    private Store store;
 
     private Long storeId;
 }

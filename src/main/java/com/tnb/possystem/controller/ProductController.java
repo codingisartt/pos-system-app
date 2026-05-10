@@ -1,6 +1,5 @@
 package com.tnb.possystem.controller;
 
-import com.tnb.possystem.exceptions.UserException;
 import com.tnb.possystem.modal.User;
 import com.tnb.possystem.payload.dto.ProductDto;
 import com.tnb.possystem.payload.response.ApiResponse;

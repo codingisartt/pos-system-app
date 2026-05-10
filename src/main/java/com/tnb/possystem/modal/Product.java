@@ -1,6 +1,5 @@
 package com.tnb.possystem.modal;
 
-import com.tnb.possystem.domain.StoreStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,6 +31,7 @@ public class Product {
     private String brand;
     private String image;
 
+    @ManyToOne
     private Category category;
 
     @ManyToOne

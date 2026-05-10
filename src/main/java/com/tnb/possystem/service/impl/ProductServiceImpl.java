@@ -1,10 +1,12 @@
 package com.tnb.possystem.service.impl;
 
 import com.tnb.possystem.mapper.ProductMapper;
+import com.tnb.possystem.modal.Category;
 import com.tnb.possystem.modal.Product;
 import com.tnb.possystem.modal.Store;
 import com.tnb.possystem.modal.User;
 import com.tnb.possystem.payload.dto.ProductDto;
+import com.tnb.possystem.repository.CategoryRepository;
 import com.tnb.possystem.repository.ProductRepository;
 import com.tnb.possystem.repository.StoreRepository;
 import com.tnb.possystem.service.ProductService;
@@ -21,12 +23,15 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final StoreRepository storeRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public ProductDto createProduct(ProductDto productDto, User user) throws Exception {
         Store store = storeRepository.findById(productDto.getStoreId())
                 .orElseThrow(() -> new Exception("Store not found"));
-        Product product = ProductMapper.toEntity(productDto, store);
+        Category category = categoryRepository.findById(productDto.getCategoryId())
+                .orElseThrow(() -> new Exception("Category not found"));
+        Product product = ProductMapper.toEntity(productDto, store, category);
         Product savedproduct = productRepository.save(product);
         return ProductMapper.toDto(savedproduct);
     }
@@ -45,6 +50,12 @@ public class ProductServiceImpl implements ProductService {
         product.setSellingPrice(productDto.getSellingPrice());
         product.setBrand(productDto.getBrand());
         product.setUpdatedAt(LocalDateTime.now());
+
+        if (productDto.getCategoryId() != null) {
+            Category category = categoryRepository.findById(productDto.getCategoryId())
+                    .orElseThrow(() -> new Exception("Category not found"));
+            product.setCategory(category);
+        }
 
         Product updatedproduct = productRepository.save(product);
         return ProductMapper.toDto(updatedproduct);

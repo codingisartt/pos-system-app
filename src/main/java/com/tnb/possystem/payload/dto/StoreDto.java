@@ -18,7 +18,6 @@ public class StoreDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-
     private String description;
 
     private String storeType;
